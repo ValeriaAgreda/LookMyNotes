@@ -13,6 +13,22 @@ class Home extends BaseController
         return view('view_login');
 
     }
+    public function indexReportes(): string
+    {
+        return view('view_reportes');
+
+    }
+    public function informacion(): string
+    {
+        return view('view_student');
+
+    }
+
+    public function menu(): string
+    {
+        return view('view_menu');
+
+    }
 
     public function validar(){
 
@@ -38,8 +54,10 @@ class Home extends BaseController
 
 
                 session()->set($datos); //sesion abierta para el sistema 
+                return redirect()->to('/menu');
+                //return view('view_menu');
 
-                return redirect()->to(base_url().'calendar');
+                //return redirect()->to(base_url().'menu');
             }else{
                 $respuesta = [
                     'tipo'=> 'danger',

@@ -3,7 +3,7 @@
 <head>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
-  <title>Subida de Archivos</title>
+  <title>Vista de Datos del Usuario</title>
 
   <!-- Google Font: Source Sans Pro -->
   <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Source+Sans+Pro:300,400,400i,700&display=fallback">
@@ -14,6 +14,7 @@
 </head>
 <body class="hold-transition sidebar-mini">
 <div class="wrapper">
+
 <aside class="main-sidebar sidebar-dark-primary elevation-4">
     <!-- Sidebar -->
     <div class="sidebar">
@@ -79,7 +80,7 @@
       <div class="container-fluid">
         <div class="row mb-2">
           <div class="col-sm-6">
-            <h1>Formulario de Subida de Archivos</h1>
+            <h1>Vista de Datos del Usuario</h1>
           </div>
         </div>
       </div><!-- /.container-fluid -->
@@ -92,38 +93,26 @@
           <div class="col-md-12">
             <div class="card card-primary">
               <div class="card-body">
-                <?php if(session()->getFlashdata('message')): ?>
-                  <div class="alert alert-info">
-                      <?= session()->getFlashdata('message') ?>
-                  </div>
-                <?php endif; ?>
-                <!-- Formulario de subida de archivos -->
-                <form action="<?php echo base_url().'subir';?>" method="post" enctype="multipart/form-data">
+                <!-- Formulario de datos del usuario -->
+                <form>
                   <div class="form-group">
-                    <label for="title">Título</label>
-                    <input type="text" class="form-control" id="title" name="title" required>
+                    <label for="name">Nombre</label>
+                    <input type="text" class="form-control" id="name" name="name" value="Valeria" readonly>
                   </div>
                   <div class="form-group">
-                    <label for="description">Descripción</label>
-                    <textarea class="form-control" id="description" name="description" required></textarea>
+                    <label for="lastName">Apellido</label>
+                    <input type="text" class="form-control" id="lastName" name="lastName" value="Agreda Candia" readonly>
                   </div>
                   <div class="form-group">
-                    <label for="subject">Materia</label>
-                    <select class="form-control" id="subject" name="subject" required>
-                      <?php if (!empty($assignments)) : ?>
-                        <?php foreach ($assignments as $assignment): ?>
-                          <option value="<?= $assignment->id ?>"><?= $assignment->name ?></option>
-                        <?php endforeach; ?>
-                      <?php else : ?>
-                        <option value="">No hay materias disponibles</option>
-                      <?php endif; ?>
-                    </select>
+                    <label for="user">Usuario</label>
+                    <input type="text" class="form-control" id="user" name="user" value="VAC123" readonly>
                   </div>
+                  
                   <div class="form-group">
-                    <label for="file">Seleccionar archivo</label>
-                    <input type="file" class="form-control" id="file" name="file" >
+                    <label for="role">Rol</label>
+                    <input type="text" class="form-control" id="role" name="role" value="Administrador" readonly>
                   </div>
-                  <button type="submit" class="btn btn-primary">Subir Archivo</button>
+                 
                 </form>
               </div>
             </div>
