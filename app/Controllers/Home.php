@@ -14,6 +14,18 @@ class Home extends BaseController
 
     }
 
+    public function informacion(): string
+    {
+        return view('view_student');
+
+    }
+
+    public function menu(): string
+    {
+        return view('view_menu');
+
+    }
+
     public function validar(){
 
         //instancia de modelo 
@@ -39,7 +51,9 @@ class Home extends BaseController
 
                 session()->set($datos); //sesion abierta para el sistema 
 
-                return redirect()->to(base_url().'calendar');
+                return view('view_menu');
+
+                //return redirect()->to(base_url().'menu');
             }else{
                 $respuesta = [
                     'tipo'=> 'danger',
