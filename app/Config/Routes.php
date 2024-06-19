@@ -22,4 +22,12 @@ $routes->get('/menu', 'Home::menu');
 //valida los usuarios
 $routes->post('/validar', 'Home::validar');
 
+$routes->get('/reminder/getReminders', 'Calendario::getReminders');
+$routes->post('/reminder/addReminder', 'Calendario::addReminder');
+
+$routes->post('/reminder/updateReminder/(:num)', 'Calendario::updateReminder/$1');
+$routes->post('/reminder/deleteReminder/(:num)', 'Calendario::deleteReminder/$1');
+
+
+
 ?>
