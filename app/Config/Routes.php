@@ -25,9 +25,9 @@ $routes->post('/validar', 'Home::validar');
 $routes->get('/reminder/getReminders', 'Calendario::getReminders');
 $routes->post('/reminder/addReminder', 'Calendario::addReminder');
 
-$routes->post('/reminder/updateReminder/(:num)', 'Calendario::updateReminder/$1');
-$routes->post('/reminder/deleteReminder/(:num)', 'Calendario::deleteReminder/$1');
+$routes->put('/reminder/updateReminder/(:num)', 'Calendario::updateReminder/$1');
+$routes->delete('/reminder/deleteReminder/(:num)', 'Calendario::deleteReminder/$1');
 
-
+$routes->get('/reminder/getReminder/(:num)', 'Calendario::getReminder/$1');
 
 ?>

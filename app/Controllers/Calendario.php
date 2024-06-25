@@ -7,7 +7,6 @@ use App\Models\MateriaModel;
 
 class Calendario extends BaseController
 {
-
     public function index()
     {
         $materiaModel = new MateriaModel();
@@ -19,55 +18,50 @@ class Calendario extends BaseController
     public function getReminders()
     {
         $model = new CalendarioModel();
-        $data = $model->findAll(); // Cambiado a findAll() para obtener todos los recordatorios
+        $data = $model->findAll();
         return $this->response->setJSON($data);
     }
 
-    public function addReminder() {
+    public function getReminder($id)
+    {
         $model = new CalendarioModel();
-    
-        // Obtener datos del formulario
-        $data = [
-            'title' => $this->request->getPost('title'),
-            'description' => $this->request->getPost('description'),
-            'date' => $this->request->getPost('date'),
-            'color' => $this->request->getPost('color'),
-            'idStudent' => $this->request->getPost('idStudent'),
-            'idAssignment' => $this->request->getPost('idAssignment')
-        ];
-    
-        // Insertar en la base de datos
-        if($model->insert($data)) {
-            // Devolver respuesta JSON de éxito
+        $data = $model->find($id);
+        return $this->response->setJSON($data);
+    }
+
+    public function addReminder()
+    {
+        $model = new CalendarioModel();
+
+        $data = $this->request->getJSON(true); // Obtener datos en formato JSON
+
+        if ($model->insert($data)) {
             return $this->response->setJSON(['status' => 'success', 'message' => 'Evento guardado exitosamente']);
         } else {
-            // Devolver respuesta JSON de error
             return $this->response->setJSON(['status' => 'error', 'message' => 'Error al guardar el evento']);
         }
     }
-    
-
-
 
     public function updateReminder($id)
     {
         $model = new CalendarioModel();
-        $data = [
-            'title' => $this->request->getPost('title'),
-            'description' => $this->request->getPost('description'),
-            'date' => $this->request->getPost('date'),
-            'color' => $this->request->getPost('color'),
-            'idStudent' => $this->request->getPost('idStudent'),
-            'idAssignment' => $this->request->getPost('idAssignment')
-        ];
-        $model->update($id, $data);
-        return $this->response->setJSON(['status' => 'success']);
+        $data = $this->request->getJSON(true); // Obtener datos en formato JSON
+
+        if ($model->update($id, $data)) {
+            return $this->response->setJSON(['status' => 'success']);
+        } else {
+            return $this->response->setJSON(['status' => 'error', 'message' => 'Error al actualizar el evento']);
+        }
     }
 
     public function deleteReminder($id)
     {
         $model = new CalendarioModel();
-        $model->delete($id);
-        return $this->response->setJSON(['status' => 'success']);
+        if ($model->delete($id)) {
+            return $this->response->setJSON(['status' => 'success']);
+        } else {
+            return $this->response->setJSON(['status' => 'error', 'message' => 'Error al eliminar el evento']);
+        }
     }
 }
+?>

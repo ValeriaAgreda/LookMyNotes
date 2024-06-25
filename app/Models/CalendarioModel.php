@@ -12,23 +12,13 @@ class CalendarioModel extends Model
     protected $useAutoIncrement = true;
 
     protected $returnType     = 'array';
-    //protected $useSoftDeletes = true;
 
     protected $allowedFields = ['title', 'description', 'date', 'color', 'idStudent', 'idAssignment'];
 
-    public function getAllReminders() {
-        return $this->findAll();
-    }
-
-    public function insertReminder($data) {
-        return $this->insert($data);
-    }
-
-    public function updateReminder($id, $data) {
-        return $this->update($id, $data);
-    }
-
-    public function deleteReminder($id) {
-        return $this->delete($id);
-    }
+    // Añadir reglas de validación
+    protected $validationRules = [
+        'title' => 'required',
+        'date' => 'required|valid_date'
+    ];
 }
+?>
