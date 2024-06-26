@@ -30,4 +30,8 @@ $routes->delete('/reminder/deleteReminder/(:num)', 'Calendario::deleteReminder/$
 
 $routes->get('/reminder/getReminder/(:num)', 'Calendario::getReminder/$1');
 
+
+
+$routes->get('/reporte', 'Estudiante::reporteEstudiantesPorCarrera');
+
 ?>
