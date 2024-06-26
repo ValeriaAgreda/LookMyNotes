@@ -1,19 +1,21 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="utf-8">
+  <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
-  <title>Ver Archivo</title>
+  <title>Reportes - Administrador</title>
 
   <!-- Google Font: Source Sans Pro -->
   <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Source+Sans+Pro:300,400,400i,700&display=fallback">
+  <!-- Font Awesome -->
   <link rel="stylesheet" href="<?php echo base_url();?>../assets/plugins/fontawesome-free/css/all.min.css">
   <!-- Theme style -->
   <link rel="stylesheet" href="<?php echo base_url();?>../assets/css/adminlte.min.css">
 </head>
 <body class="hold-transition sidebar-mini">
 <div class="wrapper">
-<aside class="main-sidebar sidebar-dark-primary elevation-4">
+  <!-- Main Sidebar Container -->
+  <aside class="main-sidebar sidebar-dark-primary elevation-4">
     <!-- Sidebar -->
     <div class="sidebar">
       <!-- Sidebar user panel (optional) -->
@@ -30,38 +32,32 @@
         <ul class="nav nav-pills nav-sidebar flex-column" data-widget="treeview" role="menu" data-accordion="false">
           <li class="nav-item">
             <a href="<?php echo base_url().'menu';?>" class="nav-link">
-              <i class="nav-icon fas fa-home"></i>
+              <i class="nav-icon fas fa-th"></i>
               <p>Inicio</p>
             </a>
           </li>
           <li class="nav-item">
             <a href="<?php echo base_url().'calendar';?>" class="nav-link">
-              <i class="nav-icon fas fa-calendar-alt"></i>
+              <i class="nav-icon fas fa-th"></i>
               <p>Calendario</p>
             </a>
           </li>
           <li class="nav-item">
             <a href="<?php echo base_url().'apuntes';?>" class="nav-link">
-              <i class="nav-icon fas fa-book"></i>
-              <p>Explorar de Apuntes</p>
+              <i class="nav-icon fas fa-th"></i>
+              <p>Explorar de apuntes</p>
             </a>
           </li>
           <li class="nav-item">
             <a href="<?php echo base_url().'apuntesForm';?>" class="nav-link">
-              <i class="nav-icon fas fa-upload"></i>
+              <i class="nav-icon fas fa-th"></i>
               <p>Subir Apuntes</p>
             </a>
           </li>
           <li class="nav-item">
-            <a href="<?php echo base_url().'user';?>" class="nav-link">
-              <i class="nav-icon fas fa-user"></i>
-              <p>Datos del Usuario</p>
-            </a>
-          </li>
-          <li class="nav-item">
-            <a href="<?php echo base_url().'';?>" class="nav-link">
-              <i class="nav-icon fas fa-sign-out-alt"></i>
-              <p>Cerrar Sesión</p>
+            <a href="<?php echo base_url().'reportes';?>" class="nav-link">
+              <i class="nav-icon fas fa-th"></i>
+              <p>Reportes</p>
             </a>
           </li>
         </ul>
@@ -78,7 +74,7 @@
       <div class="container-fluid">
         <div class="row mb-2">
           <div class="col-sm-6">
-            <h1>Ver Archivo</h1>
+            <h1>Reportes - Administrador</h1>
           </div>
         </div>
       </div><!-- /.container-fluid -->
@@ -88,45 +84,50 @@
     <section class="content">
       <div class="container-fluid">
         <div class="row">
-          <div class="col-md-12">
-            <div class="card card-primary">
-              <div class="card-body">
-                <h3><?= esc($archivo->title) ?></h3>
-                <p><strong>Descripción:</strong> <?= esc($archivo->description) ?></p>
-                <p><strong>Materia:</strong> <?= esc($archivo->idAssignment) ?></p>
-                <p><strong>Archivo:</strong> <a href="<?= base_url('uploads/' . basename($archivo->archive)) ?>">Descargar</a></p>
-                <a href="<?= base_url('apuntes') ?>" class="btn btn-secondary">Volver</a>
-                
-                <!-- Formulario de Edición -->
-                <form action="<?= base_url('archivo/update/' . $archivo->id) ?>" method="post" enctype="multipart/form-data">
-                  <div class="form-group">
-                    <label for="title">Título</label>
-                    <input type="text" name="title" class="form-control" value="<?= esc($archivo->title) ?>">
-                  </div>
-                  <div class="form-group">
-                    <label for="description">Descripción</label>
-                    <textarea name="description" class="form-control"><?= esc($archivo->description) ?></textarea>
-                  </div>
-                  <div class="form-group">
-                    <label for="subject">Materia</label>
-                    <input type="text" name="subject" class="form-control" value="<?= esc($archivo->idAssignment) ?>">
-                  </div>
-                  <div class="form-group">
-                    <label for="file">Archivo</label>
-                    <input type="file" name="file" class="form-control">
-                  </div>
-                  <button type="submit" class="btn btn-primary">Actualizar</button>
-                </form>
-
-                <!-- Formulario de Eliminación -->
-                <form action="<?= base_url('archivo/delete/' . $archivo->id) ?>" method="post" onsubmit="return confirm('¿Estás seguro de que deseas eliminar este archivo?');">
-                  <button type="submit" class="btn btn-danger mt-3">Eliminar</button>
-                </form>
+          <div class="col-md-6">
+            <div class="card">
+              <div class="card-header">
+                <h3 class="card-title">Cantidad de Notas por Materia</h3>
               </div>
+              <!-- /.card-header -->
+              <div class="card-body">
+                <ul class="list-group">
+                  <?php foreach ($assignments as $assignment): ?>
+                    <li class="list-group-item d-flex justify-content-between align-items-center">
+                      <?= esc($assignment->name) ?>
+                      <span class="badge badge-primary badge-pill"><?= $assignment->num_notes ?></span>
+                    </li>
+                  <?php endforeach; ?>
+                </ul>
+              </div>
+              <!-- /.card-body -->
             </div>
+            <!-- /.card -->
+          </div>
+          <!-- /.col -->
+          <div class="col-md-6">
+            <div class="card">
+              <div class="card-header">
+                <h3 class="card-title">Recordatorios por Estudiante</h3>
+              </div>
+              <!-- /.card-header -->
+              <div class="card-body">
+                <ul class="list-group">
+                  <?php foreach ($students as $student): ?>
+                    <li class="list-group-item d-flex justify-content-between align-items-center">
+                      <?= esc($student->name . ' ' . $student->lastName) ?>
+                      <span class="badge badge-info badge-pill"><?= $student->num_reminders ?></span>
+                    </li>
+                  <?php endforeach; ?>
+                </ul>
+              </div>
+              <!-- /.card-body -->
+            </div>
+            <!-- /.card -->
           </div>
           <!-- /.col -->
         </div>
+        <!-- /.row -->
       </div><!-- /.container-fluid -->
     </section>
     <!-- /.content -->

@@ -9,12 +9,18 @@ use CodeIgniter\Router\RouteCollection;
 $routes->get('/', 'Home::index');
 //cargar archivos
 $routes->post('/subir', 'Archivo::upload');
-//view lista de archivos subidos
 $routes->get('/apuntes', 'Archivo::index');
-//ver un archivo en especifico
+$routes->get('/reportes', 'Home::indexReportes');
+$routes->get('/apuntesForm', 'Archivo::index2');
 $routes->get('/archivo/view/(:num)', 'Archivo::view/$1');
-//view del calendario
+$routes->get('/archivo/edit/(:num)', 'Archivo::edit/$1');  // Ruta para la vista de edición
+$routes->post('/archivo/update/(:num)', 'Archivo::update/$1');  // Ruta para actualizar el archivo
+$routes->post('/archivo/delete/(:num)', 'Archivo::delete/$1');  // Ruta para eliminar el archivo
+
 $routes->get('/calendar', 'Calendario::index');
+$routes->get('/user', 'Home::informacion');
+$routes->get('/menu', 'Home::menu');
+
 //carga informacion del usuario*
 $routes->get('/user', 'Home::informacion');
 //view de inicio
