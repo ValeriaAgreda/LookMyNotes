@@ -16,23 +16,11 @@ class Home extends BaseController
     public function index(): string
     {
         return view('view_login');
-
     }
+
     public function indexReportes(): string
     {
         return view('view_reportes');
-
-    }
-    public function informacion(): string
-    {
-        return view('view_student');
-
-    }
-
-    public function menu(): string
-    {
-        return view('view_menu');
-
     }
 
     public function informacion(): string
@@ -70,15 +58,11 @@ class Home extends BaseController
                     'role' => $usuarioBD->role  
                 ];
 
-                session()->set($datos); //sesion abierta para el sistema 
-                return redirect()->to('/menu');
-                //return view('view_menu');
                 session()->set($datos);
 
-                return redirect()->to(base_url('menu'));
+                // Redirigir al menú correspondiente
+                return redirect()->to('/menu');
             } else {
-                //return redirect()->to(base_url().'menu');
-            }else{
                 $respuesta = [
                     'tipo' => 'danger',
                     'mensaje' => 'Password incorrecto'

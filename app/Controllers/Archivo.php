@@ -52,18 +52,7 @@ class Archivo extends BaseController
         } else {
             return redirect()->to(base_url().'apuntes')->with('message', 'Error al subir el archivo');
         }        }
-    }
-
-    public function view($id)
-    {
-        $archivoModel = new ArchivoModel();
-        $archivo = $archivoModel->find($id);
-
-        if (!$archivo) {
-            throw new \CodeIgniter\Exceptions\PageNotFoundException('Archivo no encontrado');
-        }
-
-        return view('detalle_view', ['archivo' => $archivo]);
+    
     
     public function view($id)
     {

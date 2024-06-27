@@ -6,6 +6,7 @@ use App\Models\MateriaModel;
 use App\Models\NotasModel;
 use App\Models\EstudianteModel;
 use App\Models\RecordatorioModel;
+use App\Models\ReminderModel;
 use CodeIgniter\Controller;
 
 class Reportes extends Controller
@@ -24,7 +25,7 @@ class Reportes extends Controller
 
         // Cargar el modelo de Estudiante y Recordatorio
         $estudianteModel = new EstudianteModel();
-        $recordatorioModel = new RecordatorioModel();
+        $recordatorioModel = new ReminderModel();
 
         // Obtener todos los estudiantes y cantidad de recordatorios por estudiante
         $students = $estudianteModel->findAll();
