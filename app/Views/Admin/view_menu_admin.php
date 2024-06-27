@@ -41,7 +41,8 @@
 </head>
 <body class="hold-transition sidebar-mini">
 <div class="wrapper">
-<?php include realpath(__DIR__ . '/../sidebar_menu.php'); ?>
+<?php include 'sidebar_menu_admin.php'; ?>
+
 
   
 
