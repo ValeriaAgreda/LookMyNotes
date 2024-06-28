@@ -50,6 +50,12 @@
             </a>
           </li>
           <li class="nav-item">
+            <a href="<?php echo base_url().'estudiante';?>" class="nav-link">
+              <i class="nav-icon fas fa-chart-bar"></i>
+              <p>Estudiantes Registrados</p>
+            </a>
+          </li>
+          <li class="nav-item">
             <a href="<?php echo base_url().'';?>" class="nav-link">
               <i class="nav-icon fas fa-sign-out-alt"></i>
               <p>Cerrar Sesión</p>

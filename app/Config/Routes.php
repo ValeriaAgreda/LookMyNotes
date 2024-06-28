@@ -14,9 +14,9 @@ $routes->post('/subir', 'Archivo::upload');
 $routes->get('/apuntes', 'Archivo::index');
 $routes->get('/apuntesForm', 'Archivo::index2');
 $routes->get('/archivo/view/(:num)', 'Archivo::view/$1');
-$routes->get('/archivo/edit/(:num)', 'Archivo::edit/$1');  // Ruta para la vista de edición
-$routes->post('/archivo/update/(:num)', 'Archivo::update/$1');  // Ruta para actualizar el archivo
-$routes->post('/archivo/delete/(:num)', 'Archivo::delete/$1');  // Ruta para eliminar el archivo
+$routes->get('/archivo/edit/(:num)', 'Archivo::edit/$1');  
+$routes->post('/archivo/update/(:num)', 'Archivo::update/$1');  
+$routes->post('/archivo/delete/(:num)', 'Archivo::delete/$1');  
 
 // Rutas para reportes
 $routes->get('/reportes', 'Home::indexReportes');
@@ -52,7 +52,7 @@ $routes->get('/estudiante/create', 'Estudiante::create');
 $routes->post('/estudiante/store', 'Estudiante::store');
 $routes->get('/estudiante/edit/(:num)', 'Estudiante::edit/$1');
 $routes->post('/estudiante/update/(:num)', 'Estudiante::update/$1');
-$routes->delete('/estudiante/delete/(:num)', 'Estudiante::delete/$1');
+$routes->post('/estudiante/delete/(:num)', 'Estudiante::delete/$1'); // Cambiar delete a post
 $routes->get('/estudiante/view', 'Estudiante::view');
 $routes->get('/estudiante/viewStudent/(:num)', 'Estudiante::viewStudent/$1');
 

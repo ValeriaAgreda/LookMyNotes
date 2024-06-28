@@ -13,7 +13,7 @@ class EstudianteModel extends Model
 
     protected $returnType = 'object';
 
-    protected $allowedFields = ['user', 'password', 'name', 'lastName', 'idCareer'];
+    protected $allowedFields = ['user', 'password', 'name', 'role', 'lastName', 'idCareer'];
 
     // Método para obtener un usuario específico por nombre de usuario
     public function getUsuario($usuarioEnviado)
@@ -38,3 +38,4 @@ class EstudianteModel extends Model
                     ->findAll();
     }
 }
+?>

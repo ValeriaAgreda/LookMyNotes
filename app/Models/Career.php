@@ -28,5 +28,5 @@ class Career extends Model
     ];
 
     // Para permitir operaciones con Soft Deletes (opcional)
-    protected $useSoftDeletes = true;
+    protected $useSoftDeletes = false;
 }
