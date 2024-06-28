@@ -9,11 +9,36 @@ class Archivo extends BaseController
 {
     public function index(): string
     {
-        $archivoModel = new ArchivoModel();
-        $archivos = $archivoModel->findAll();
+        $materiaId = $this->request->getGet('materia'); // Obtener el ID de la materia del parámetro GET
 
-        return view('registros_view', ['archivos' => $archivos]);
+        $archivoModel = new ArchivoModel();
+
+        if ($materiaId) {
+            $archivos = $archivoModel->where('idAssignment', $materiaId)->findAll();
+        } else {
+            $archivos = $archivoModel->findAll();
+        }
+
+        $materiaModel = new MateriaModel();
+        $materias = $materiaModel->findAll();
+
+        // Crear un mapeo de IDs de materias a nombres
+        $materiasMap = [];
+        foreach ($materias as $materia) {
+            $materiasMap[$materia->id] = $materia->name;
+        }
+
+        // Enviar la materia seleccionada de vuelta a la vista para mantener la selección
+        $materiaSeleccionada = $materiaId;
+
+        return view('registros_view', [
+            'archivos' => $archivos,
+            'materiasMap' => $materiasMap,
+            'materiaSeleccionada' => $materiaSeleccionada
+        ]);
     }
+    
+
 
     public function index2(): string
     {
@@ -51,20 +76,33 @@ class Archivo extends BaseController
             return redirect()->to(base_url().'apuntes')->with('message', 'Archivo subido exitosamente');
         } else {
             return redirect()->to(base_url().'apuntes')->with('message', 'Error al subir el archivo');
+        }        }
+    
+    
+        public function view($id)
+        {
+            $archivoModel = new ArchivoModel();
+            $archivo = $archivoModel->find($id);
+        
+            if (!$archivo) {
+                throw new \CodeIgniter\Exceptions\PageNotFoundException('Archivo no encontrado');
+            }
+        
+            $materiaModel = new MateriaModel();
+            $materias = $materiaModel->findAll();
+        
+            // Crear un mapeo de IDs de materias a nombres
+            $materiasMap = [];
+            foreach ($materias as $materia) {
+                $materiasMap[$materia->id] = $materia->name;
+            }
+        
+            return view('detalle_view', [
+                'archivo' => $archivo,
+                'materiasMap' => $materiasMap
+            ]);
         }
-    }
-
-    public function view($id)
-    {
-        $archivoModel = new ArchivoModel();
-        $archivo = $archivoModel->find($id);
-
-        if (!$archivo) {
-            throw new \CodeIgniter\Exceptions\PageNotFoundException('Archivo no encontrado');
-        }
-
-        return view('detalle_view', ['archivo' => $archivo]);
-    }
+        
 
     public function edit($id)
     {

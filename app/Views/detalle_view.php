@@ -13,63 +13,7 @@
 </head>
 <body class="hold-transition sidebar-mini">
 <div class="wrapper">
-<aside class="main-sidebar sidebar-dark-primary elevation-4">
-    <!-- Sidebar -->
-    <div class="sidebar">
-      <!-- Sidebar user panel (optional) -->
-      <div class="user-panel mt-3 pb-3 mb-3 d-flex">
-        <div class="image">
-          <img src="<?php echo base_url();?>../assets/img/user2-160x160.jpg" class="img-circle elevation-2" alt="User Image">
-        </div>
-        <div class="info">
-          <a href="<?php echo base_url().'user';?>" class="d-block">Usuario</a>
-        </div>
-      </div>
-      <!-- Sidebar Menu -->
-      <nav class="mt-2">
-        <ul class="nav nav-pills nav-sidebar flex-column" data-widget="treeview" role="menu" data-accordion="false">
-          <li class="nav-item">
-            <a href="<?php echo base_url().'menu';?>" class="nav-link">
-              <i class="nav-icon fas fa-home"></i>
-              <p>Inicio</p>
-            </a>
-          </li>
-          <li class="nav-item">
-            <a href="<?php echo base_url().'calendar';?>" class="nav-link">
-              <i class="nav-icon fas fa-calendar-alt"></i>
-              <p>Calendario</p>
-            </a>
-          </li>
-          <li class="nav-item">
-            <a href="<?php echo base_url().'apuntes';?>" class="nav-link">
-              <i class="nav-icon fas fa-book"></i>
-              <p>Explorar de Apuntes</p>
-            </a>
-          </li>
-          <li class="nav-item">
-            <a href="<?php echo base_url().'apuntesForm';?>" class="nav-link">
-              <i class="nav-icon fas fa-upload"></i>
-              <p>Subir Apuntes</p>
-            </a>
-          </li>
-          <li class="nav-item">
-            <a href="<?php echo base_url().'user';?>" class="nav-link">
-              <i class="nav-icon fas fa-user"></i>
-              <p>Datos del Usuario</p>
-            </a>
-          </li>
-          <li class="nav-item">
-            <a href="<?php echo base_url().'';?>" class="nav-link">
-              <i class="nav-icon fas fa-sign-out-alt"></i>
-              <p>Cerrar Sesión</p>
-            </a>
-          </li>
-        </ul>
-      </nav>
-      <!-- /.sidebar-menu -->
-    </div>
-    <!-- /.sidebar -->
-  </aside>
+  <?php include 'sidebar_menu.php'; ?>
 
   <!-- Content Wrapper. Contains page content -->
   <div class="content-wrapper">
@@ -93,10 +37,10 @@
               <div class="card-body">
                 <h3><?= esc($archivo->title) ?></h3>
                 <p><strong>Descripción:</strong> <?= esc($archivo->description) ?></p>
-                <p><strong>Materia:</strong> <?= esc($archivo->idAssignment) ?></p>
+                <p><strong>Materia:</strong> <?= esc($materiasMap[$archivo->idAssignment] ?? 'Materia Desconocida') ?></p>
                 <p><strong>Archivo:</strong> <a href="<?= base_url('uploads/' . basename($archivo->archive)) ?>">Descargar</a></p>
                 <a href="<?= base_url('apuntes') ?>" class="btn btn-secondary">Volver</a>
-                
+
                 <!-- Formulario de Edición -->
                 <form action="<?= base_url('archivo/update/' . $archivo->id) ?>" method="post" enctype="multipart/form-data">
                   <div class="form-group">
@@ -109,7 +53,11 @@
                   </div>
                   <div class="form-group">
                     <label for="subject">Materia</label>
-                    <input type="text" name="subject" class="form-control" value="<?= esc($archivo->idAssignment) ?>">
+                    <select name="subject" class="form-control">
+                      <?php foreach ($materiasMap as $id => $name): ?>
+                        <option value="<?= $id ?>" <?= $archivo->idAssignment == $id ? 'selected' : '' ?>><?= esc($name) ?></option>
+                      <?php endforeach; ?>
+                    </select>
                   </div>
                   <div class="form-group">
                     <label for="file">Archivo</label>

@@ -11,65 +11,10 @@
   <!-- Theme style -->
   <link rel="stylesheet" href="<?php echo base_url();?>../assets/css/adminlte.min.css">
 </head>
+</head>
 <body class="hold-transition sidebar-mini">
 <div class="wrapper">
-<aside class="main-sidebar sidebar-dark-primary elevation-4">
-    <!-- Sidebar -->
-    <div class="sidebar">
-      <!-- Sidebar user panel (optional) -->
-      <div class="user-panel mt-3 pb-3 mb-3 d-flex">
-        <div class="image">
-          <img src="<?php echo base_url();?>../assets/img/user2-160x160.jpg" class="img-circle elevation-2" alt="User Image">
-        </div>
-        <div class="info">
-          <a href="<?php echo base_url().'user';?>" class="d-block">Usuario</a>
-        </div>
-      </div>
-      <!-- Sidebar Menu -->
-      <nav class="mt-2">
-        <ul class="nav nav-pills nav-sidebar flex-column" data-widget="treeview" role="menu" data-accordion="false">
-          <li class="nav-item">
-            <a href="<?php echo base_url().'menu';?>" class="nav-link">
-              <i class="nav-icon fas fa-home"></i>
-              <p>Inicio</p>
-            </a>
-          </li>
-          <li class="nav-item">
-            <a href="<?php echo base_url().'calendar';?>" class="nav-link">
-              <i class="nav-icon fas fa-calendar-alt"></i>
-              <p>Calendario</p>
-            </a>
-          </li>
-          <li class="nav-item">
-            <a href="<?php echo base_url().'apuntes';?>" class="nav-link">
-              <i class="nav-icon fas fa-book"></i>
-              <p>Explorar de Apuntes</p>
-            </a>
-          </li>
-          <li class="nav-item">
-            <a href="<?php echo base_url().'apuntesForm';?>" class="nav-link">
-              <i class="nav-icon fas fa-upload"></i>
-              <p>Subir Apuntes</p>
-            </a>
-          </li>
-          <li class="nav-item">
-            <a href="<?php echo base_url().'user';?>" class="nav-link">
-              <i class="nav-icon fas fa-user"></i>
-              <p>Datos del Usuario</p>
-            </a>
-          </li>
-          <li class="nav-item">
-            <a href="<?php echo base_url().'';?>" class="nav-link">
-              <i class="nav-icon fas fa-sign-out-alt"></i>
-              <p>Cerrar Sesión</p>
-            </a>
-          </li>
-        </ul>
-      </nav>
-      <!-- /.sidebar-menu -->
-    </div>
-    <!-- /.sidebar -->
-  </aside>
+  <?php include 'sidebar_menu.php'; ?>
 
   <!-- Content Wrapper. Contains page content -->
   <div class="content-wrapper">
@@ -92,6 +37,20 @@
             <div class="card">
               <div class="card-header">
                 <h3 class="card-title">Lista de Archivos Subidos</h3>
+                <!-- Filtro de Materias -->
+                <form action="<?= base_url('apuntes') ?>" method="get">
+    <div class="form-group">
+        <label for="materia">Seleccionar Materia:</label>
+        <select name="materia" id="materia" class="form-control">
+            <option value="">Todas las Materias</option>
+            <?php foreach ($materiasMap as $id => $nombre): ?>
+                <option value="<?= $id ?>" <?= ($id == $materiaSeleccionada) ? 'selected' : '' ?>><?= esc($nombre) ?></option>
+            <?php endforeach; ?>
+        </select>
+    </div>
+    <button type="submit" class="btn btn-primary">Filtrar</button>
+</form>
+
               </div>
               <!-- /.card-header -->
               <div class="card-body">
@@ -105,16 +64,22 @@
                     </tr>
                   </thead>
                   <tbody>
-                    <?php foreach ($archivos as $archivo): ?>
+                    <?php if (empty($archivos)): ?>
                       <tr>
-                        <td><?= esc($archivo->title) ?></td>
-                        <td><?= esc($archivo->description) ?></td>
-                        <td><?= esc($archivo->idAssignment) ?></td>
-                        <td>
-                          <a href="<?= base_url('archivo/view/' . $archivo->id) ?>" class="btn btn-info">Ver</a>
-                        </td>
+                        <td colspan="4" class="text-center">No se encontraron archivos para esta materia.</td>
                       </tr>
-                    <?php endforeach; ?>
+                    <?php else: ?>
+                      <?php foreach ($archivos as $archivo): ?>
+                        <tr>
+                          <td><?= esc($archivo->title) ?></td>
+                          <td><?= esc($archivo->description) ?></td>
+                          <td><?= esc($materiasMap[$archivo->idAssignment] ?? 'Materia Desconocida') ?></td>
+                          <td>
+                            <a href="<?= base_url('archivo/view/' . $archivo->id) ?>" class="btn btn-info">Ver</a>
+                          </td>
+                        </tr>
+                      <?php endforeach; ?>
+                    <?php endif; ?>
                   </tbody>
                 </table>
               </div>
@@ -140,16 +105,15 @@
 <!-- ./wrapper -->
 
 <!-- jQuery -->
-<script src="<?= base_url('plugins/jquery/jquery.min.js') ?>"></script>
-<!-- Bootstrap 4 -->
-<script src="<?= base_url('plugins/bootstrap/js/bootstrap.bundle.min.js') ?>"></script>
-<!-- DataTables -->
-<script src="<?= base_url('plugins/datatables/jquery.dataTables.min.js') ?>"></script>
-<script src="<?= base_url('plugins/datatables-bs4/js/dataTables.bootstrap4.min.js') ?>"></script>
-<script src="<?= base_url('plugins/datatables-responsive/js/dataTables.responsive.min.js') ?>"></script>
-<script src="<?= base_url('plugins/datatables-responsive/js/responsive.bootstrap4.min.js') ?>"></script>
+<script src="<?php echo base_url();?>../assets/plugins/jquery/jquery.min.js"></script>
+<!-- Bootstrap -->
+<script src="<?php echo base_url();?>../assets/plugins/bootstrap/js/bootstrap.bundle.min.js"></script>
 <!-- AdminLTE App -->
-<script src="<?= base_url('dist/js/adminlte.min.js') ?>"></script>
+<script src="<?php echo base_url();?>../assets/js/adminlte.min.js"></script>
+<!-- fullCalendar 2.2.5 -->
+<script src="<?php echo base_url();?>../assets/plugins/moment/moment.min.js"></script>
+<script src="<?php echo base_url();?>../assets/plugins/fullcalendar/main.js"></script>
+<!-- Page specific script -->
 <script>
   $(function () {
     $("#example1").DataTable({

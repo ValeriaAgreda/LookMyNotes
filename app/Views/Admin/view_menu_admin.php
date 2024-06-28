@@ -3,7 +3,7 @@
 <head>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
-  <title>Menú Principal</title>
+  <title>Menú Principal Administrador</title>
 
   <!-- Google Font: Source Sans Pro -->
   <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Source+Sans+Pro:300,400,400i,700&display=fallback">
@@ -41,7 +41,9 @@
 </head>
 <body class="hold-transition sidebar-mini">
 <div class="wrapper">
-<?php include 'sidebar_menu.php'; ?>
+<?php include 'sidebar_menu_admin.php'; ?>
+
+
   
 
   <!-- Content Wrapper. Contains page content -->
@@ -51,7 +53,7 @@
       <div class="container-fluid">
         <div class="row mb-2">
           <div class="col-sm-6">
-            <h1>Menú Principal</h1>
+            <h1>Menú Principal Administrador</h1>
           </div>
         </div>
       </div><!-- /.container-fluid -->
